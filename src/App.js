@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import viewFeedback from './components/viewFeedback';
 import addFeedback from './components/addFeedback';
 import addRating from './components/addRating';
-
+import contactUs from './components/contactUs';
 
 
 
@@ -18,6 +18,7 @@ class App extends Component{
                         <Route exact path='/' component={viewFeedback}/>
                         <Route exact path='/addFeedback' component={addFeedback}/>
                         <Route exact path='/addRating' component={addRating}/>
+                        <Route exact path='/contactUs' component={contactUs}/>
                     </Switch>
                 </Router>
 

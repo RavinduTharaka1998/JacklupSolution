@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
 
 import logo from './img/logo.png';
 import back from './img/back1.png';
@@ -8,6 +9,58 @@ import './css/addFeedback.css';
 
 
 class addFeedback extends Component{
+    constructor(props){
+        super(props);
+
+        this.onChangeType = this.onChangeType.bind(this);
+        this.onChangeEmail = this.onChangeEmail.bind(this);
+        this.onChangeMessage = this.onChangeMessage.bind(this);
+
+        this.onSubmit = this.onSubmit.bind(this);
+
+        this.state = {
+            type: '',
+            email: '',
+            message:''
+        }
+    }
+    onChangeType(e){
+        this.setState( {
+            type: e.target.value
+        });
+    }
+    onChangeEmail(e){
+        this.setState( {
+            email: e.target.value
+        });
+    }
+    onChangeMessage(e){
+        this.setState( {
+            message: e.target.value
+        });
+    }
+    onSubmit(e){
+        e.preventDefault();
+       
+        const obj = {
+            type : this.state.type,
+            email : this.state.email,
+            message : this.state.message
+        };
+
+                        axios.post('http://localhost:4000/jacklup/addfeedback',obj)
+                        .then(res => {
+                            alert("Feedback Send Successfully");
+                            this.setState({
+                                type: '',
+                                email: '',
+                                message:''
+                    
+                            })
+                            console.log(res.data)});
+                        window.location.replace('/');
+                    
+    }
 
   render() {
     return(
@@ -15,16 +68,16 @@ class addFeedback extends Component{
             <div className='content'>
 
                 <div className='logo'>
-                    <img src = {logo}/>
+                    <a href = "/"><img src = {logo}/></a>
                 </div>
                 <br/><br/><br/><br/><br/><br/><br/>
                 <div className='row'>
                     <div className='col-lg-8'>
                         <div className='outer'>
                             <h5>How Can we Help You?</h5>
-                            <from>
+                            <form onSubmit={this.onSubmit}>
                                 <div className="form-group">
-                                    <select required  className="form-control" >
+                                    <select required  className="form-control" value={this.state.type} onChange = {this.onChangeType} >
                                         <option>- Please Choose -</option>
                                         <option value = "A">A</option>
                                         <option value = "B">B</option>
@@ -33,16 +86,16 @@ class addFeedback extends Component{
                                 </div>
                                 <div className="form-group">
                                     <label>E-mail :</label>
-                                    <input type ="email" required  className="form-control" />
+                                    <input type ="email" required  className="form-control" value={this.state.email} onChange = {this.onChangeEmail} />
                                 </div>
                                 <div className="form-group">
                                     <label>Describe Your Feedback</label>
-                                   <textarea required  className="form-control"></textarea>
+                                   <textarea required  className="form-control" value={this.state.message} onChange = {this.onChangeMessage}></textarea>
                                 </div>
                                 <div className="form-group">
-                                    <input type = "submit" value = "Submit FeedBack" className = "btn" style={{background:'purple',color:'white'}}/>
+                                    <input type = "submit" value = "Submit FeedBack" className = "btn" style={{background:'purple',color:'white'}} />
                                 </div>
-                            </from>
+                            </form>
                         </div>
                     </div>
                     <div className='col-lg-4'>

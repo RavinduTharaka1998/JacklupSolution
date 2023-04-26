@@ -1,12 +1,37 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 import logo from './img/logo.png';
 import maintittle from './img/maintittle.png';
 import './css/viewFeedback.css';
+import FeedbackTableRow from './feedbackTableRow';
 
 
 
 class viewFeedback extends Component{
+
+    constructor(props) {
+        super(props);
+        this.state = {feedback : []};
+    }
+
+    componentDidMount() {
+        // alert('email is ' +this.props.match.params.id);
+        axios.get('http://localhost:4000/jacklup/feedback/')
+            .then(response => {
+                this.setState({feedback : response.data});
+
+            })
+            .catch(function (error){
+                console.log(error);
+            })
+    }
+
+    tabRow(){
+        return this.state.feedback.map(function (object, i){
+            return <FeedbackTableRow obj = {object} key = {i}/>;
+        });
+    }
 
   render() {
     return(
@@ -28,7 +53,7 @@ class viewFeedback extends Component{
                             <a href = "/addFeedback">About Us</a>
                         </li>
                         <li>
-                            <a href = "">Contact Us</a>
+                            <a href = "/contactUs">Contact Us</a>
                         </li>
                      </ul>
                 </div>
@@ -40,6 +65,15 @@ class viewFeedback extends Component{
             <div className='main-tittle'>
                 <img src ={maintittle} />
             </div>
+
+            
+            <div style={{paddingLeft:200,paddingRight:200,display:'flex',maxWidth:50}}>
+                {this.tabRow()}
+            </div>
+            <br/><br/>
+            <center>
+                <button className='btn' style={{background:'rgb(177, 147, 206)',color:'white'}}><a href = "/addFeedback" style={{color:'white'}}>Feed back</a></button>
+            </center>
         </div>
     );
   }

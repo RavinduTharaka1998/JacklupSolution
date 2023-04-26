@@ -15,7 +15,7 @@ class addFeedback extends Component{
             <div className = 'rate-content'>
 
                 <div className='logo'>
-                    <img src = {logo}/>
+                    <a href = "/"><img src = {logo}/></a>
                 </div>
                 <br/><br/><br/><br/><br/><br/><br/>
                 <div className='row'>

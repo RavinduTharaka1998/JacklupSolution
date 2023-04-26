@@ -36,7 +36,7 @@ class contactUs extends Component{
                         <div className='chat'>
                             <img src = {chat} width="100"/>
                             <h5>Chat Live</h5>
-                            <button><a href = "">chat now</a></button>
+                            <button><a href = "/chat">chat now</a></button>
                         </div>
                         <div className='email'>
                             <img src = {email} width="100"/>

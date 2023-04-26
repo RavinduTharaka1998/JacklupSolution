@@ -2,6 +2,7 @@ const express = require('express');
 const jacklupRouteRoutes = express.Router();
 
 let FeedBacks = require('./feedback.model');
+let Chats = require('./chat.model');
 
 jacklupRouteRoutes.route('/addfeedback').post(function (req,res){
     let feedBacks = new FeedBacks(req.body);
@@ -25,6 +26,30 @@ jacklupRouteRoutes.route('/feedback').get(function (req, res){
     });
 
 });
+
+jacklupRouteRoutes.route('/addchat').post(function (req,res){
+    let chats = new Chats(req.body);
+    chats.save()
+        .then(chats => {
+            res.status(200).json({'chat' : 'chats is added successfull'});
+        })
+        .catch(err => {
+            res.status(400).send("Unable to save database")
+        });
+});
+
+jacklupRouteRoutes.route('/chat').get(function (req, res){
+    console.log("get chat called")
+    Chats.find(function (err,chat){
+        if(err)
+            console.log(err);
+        else{
+            res.json(chat)
+        }
+    });
+
+});
+
 
 // businessRoutes.route('/edit/:id').get(function (req,res){
 //     let id = req.params.id;

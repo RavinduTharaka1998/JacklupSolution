@@ -3,6 +3,7 @@ const jacklupRouteRoutes = express.Router();
 
 let FeedBacks = require('./feedback.model');
 let Chats = require('./chat.model');
+let Rates = require('./rate.model');
 
 jacklupRouteRoutes.route('/addfeedback').post(function (req,res){
     let feedBacks = new FeedBacks(req.body);
@@ -50,45 +51,37 @@ jacklupRouteRoutes.route('/chat').get(function (req, res){
 
 });
 
+jacklupRouteRoutes.route('/rate/:id').get(function (req, res){
+    let id = req.params.id;
+    console.log("Get Rating Called..." +id);
+    Rates.findById(id, function (err,rates){
+        res.json(rates);
+    });
+});
 
-// businessRoutes.route('/edit/:id').get(function (req,res){
-//     let id = req.params.id;
-//     Customers.findById(id, function (err,customers){
-//         res.json(customers);
-//     });
-// });
+jacklupRouteRoutes.route('/update/:id').post(function (req,res){
+    let id = req.params.id;
+    console.log("Update Rating Called..." +id);
+    Rates.findById(id, function (err, rates){
+        if(!rates)
+            res.status(404).send("Data is not found??");
+        else{
+            rates.one = req.body.one;
+            rates.two = req.body.two;
+            rates.three = req.body.three;
+            rates.four = req.body.four;
+            rates.five = req.body.five;
+            rates.total = req.body.total;
+            rates.average = req.body.average;
 
-// businessRoutes.route('/update/:id').post(function (req,res){
-//     let id = req.params.id;
-//     Customers.findById(id, function (err, customers){
-//         if(!customers)
-//             res.status(404).send("Data is not found??");
-//         else{
-//             customers.name = req.body.name;
-//             customers.address = req.body.address;
-//             customers.nic = req.body.nic;
-//             customers.phone = req.body.phone;
-//             customers.customer_type = req.body.customer_type;
-//             customers.email = req.body.email;
-//             customers.password = req.body.password;
-
-
-//             customers.save().then(business => {
-//                 res.json('Update Complete');
-//             })
-//                 .catch(err =>{
-//                     res.status(400).send("Unable to update data");
-//                 });
-//         }
-//     });
-// });
-
-// businessRoutes.route('/delete/:id').get(function(req,res){
-//     Customers.findByIdAndRemove({_id:req.params.id}, function (err, customers){
-//         if(err)res.json(err);
-
-//         else res.json('Successfully Removed');
-//     });
-// });
+            rates.save().then(rates => {
+                res.json('Update Complete');
+            })
+            .catch(err =>{
+                res.status(400).send("Unable to update data");
+            });
+        }
+    });
+});
 
 module.exports = jacklupRouteRoutes;

@@ -6,8 +6,9 @@ import addFeedback from './components/addFeedback';
 import addRating from './components/addRating';
 import contactUs from './components/contactUs';
 import chat from './components/chat';
-
-
+import adminViewFeedback from './components/adminViewFeedback';
+import adminEditFeedback from './components/adminEditFeedback';
+import adminSearchFeedback from './components/adminSearchFeedback';
 
 
 class App extends Component{
@@ -22,6 +23,9 @@ class App extends Component{
                         <Route exact path='/addRating' component={addRating}/>
                         <Route exact path='/contactUs' component={contactUs}/>
                         <Route exact path='/chat' component={chat}/>
+                        <Route exact path='/adminViewFeedback' component={adminViewFeedback}/>
+                        <Route exact path='/adminEditFeedback/:id' component={adminEditFeedback}/>
+                        <Route exact path='/adminSearchFeedback/:id' component={adminSearchFeedback}/>
                     </Switch>
                 </Router>
 

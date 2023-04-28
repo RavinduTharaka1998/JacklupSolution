@@ -72,7 +72,8 @@ class viewFeedback extends Component{
             </div>
             <br/><br/>
             <center>
-                <button className='btn' style={{background:'rgb(177, 147, 206)',color:'white'}}><a href = "/addFeedback" style={{color:'white'}}>Feed back</a></button>
+                <button className='btn' style={{background:'rgb(177, 147, 206)',color:'white'}}><a href = "/addFeedback" style={{color:'white'}}>Add Feedback</a></button>&nbsp;&nbsp;
+                <button className='btn' style={{background:'rgb(177, 147, 206)',color:'white'}}><a href = "/adminViewFeedback" style={{color:'white'}}>View More</a></button>
             </center>
         </div>
     );

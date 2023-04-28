@@ -28,6 +28,55 @@ jacklupRouteRoutes.route('/feedback').get(function (req, res){
 
 });
 
+jacklupRouteRoutes.route('/editfeedback/:id').get(function (req,res){
+    let id = req.params.id;
+    FeedBacks.findById(id, function (err,feed){
+        res.json(feed);
+    });
+});
+
+jacklupRouteRoutes.route('/updatefeedback/:id').post(function (req,res){
+    let id = req.params.id;
+    FeedBacks.findById(id, function (err, feed){
+        if(!feed)
+            res.status(404).send("Data is not found??");
+        else{
+            feed.type = req.body.type;
+            feed.email = req.body.email;
+            feed.message = req.body.message;
+
+
+            feed.save().then(feed => {
+                res.json('Update Complete');
+            })
+                .catch(err =>{
+                    res.status(400).send("Unable to update data");
+                });
+        }
+    });
+});
+
+jacklupRouteRoutes.route('/admindeletefeedback/:id').get(function(req,res){
+    FeedBacks.findByIdAndRemove({_id:req.params.id}, function (err, feed){
+        if(err)res.json(err);
+
+        else res.json('Successfully Removed');
+    });
+});
+
+jacklupRouteRoutes.route('/searchfeedback/:id').get(function (req, res){
+    let id = req.params.id;
+    console.log("Search Key : "+id);
+    FeedBacks.findOne({$or:[{email : id},{type : id}]},function (err,feed){
+        if(err)
+            console.log(err);
+        else{
+            res.json(feed)
+        }
+    });
+
+});
+
 jacklupRouteRoutes.route('/addchat').post(function (req,res){
     let chats = new Chats(req.body);
     chats.save()
@@ -83,5 +132,7 @@ jacklupRouteRoutes.route('/update/:id').post(function (req,res){
         }
     });
 });
+
+
 
 module.exports = jacklupRouteRoutes;

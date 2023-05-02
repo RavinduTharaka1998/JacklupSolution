@@ -41,7 +41,7 @@ class contactUs extends Component{
                         <div className='email'>
                             <img src = {email} width="100"/>
                             <h5>E-mail</h5>
-                            <button>send mail</button>
+                            <button><a href = "/sendEmail">send mail</a></button>
                         </div>
                     </div>
                     <br/><br/><br/><br/>

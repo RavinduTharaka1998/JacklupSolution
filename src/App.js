@@ -9,7 +9,7 @@ import chat from './components/chat';
 import adminViewFeedback from './components/adminViewFeedback';
 import adminEditFeedback from './components/adminEditFeedback';
 import adminSearchFeedback from './components/adminSearchFeedback';
-
+import { SendEmail} from './components/sendEmail';
 
 class App extends Component{
 
@@ -26,6 +26,7 @@ class App extends Component{
                         <Route exact path='/adminViewFeedback' component={adminViewFeedback}/>
                         <Route exact path='/adminEditFeedback/:id' component={adminEditFeedback}/>
                         <Route exact path='/adminSearchFeedback/:id' component={adminSearchFeedback}/>
+                        <Route path='/sendEmail' component={SendEmail}/>
                     </Switch>
                 </Router>
 
